@@ -1,4 +1,3 @@
-
 class AcGame {
     constructor(id){
         

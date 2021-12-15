@@ -1,0 +1,21 @@
+{% load static %}
+<head>
+    <!--head里可以引入资源 第一行是css文件，第二行是jQuery文件。-->
+    <link rel="stylesheet" href="https://cdn.acwing.com/static/jquery-ui-dist/jquery-ui.min.css">
+    <script src="https://cdn.acwing.com/static/jquery/js/jquery-3.3.1.min.js"></script>
+    <!--我们也可以引入自己写的css文件，写法如下： 注意的是，我们使用Django自带的工具,如下面的写法所示：！！！，此外还需要在开头加上一句话-->
+    <link rel="stylesheet" href="{% static 'css/game.css'%}"
+    <!--下面导入js文件,注意Django里的静态文件就要这样写，大括号百分百号{%%}。   注意script需要闭标签-->
+    <script src="{% static 'js/dist/game.js' %}"> </script>
+
+</head>
+
+<!--margin:0什么含义呢？ html里面每一个元素都有一个属性叫margin，比如我们有一个矩形，margin:5的意思就是，矩形的真实宽度是矩形的一圈加上5px，而margin:0就表示当前的边界就是真实边界，不要外延，后者不加这句话会默认外延一小部分-->
+<body style="margin: 0">
+    <div id="ac_game_12345678"></div>
+    <script>
+        $(document).ready(function(){
+            let ac_game = AcGame("ac_game_12345678");
+        })
+    </script>
+</body>

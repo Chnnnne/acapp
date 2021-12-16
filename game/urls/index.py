@@ -4,5 +4,5 @@ urlpatterns = [
     path("", index, name="index"), #此处不写东西了
     path("menu/", include("game.urls.menu.index")),
     path("playground/", include("game.urls.playground.index")),
-    path("settings/", include("game.urls.settings.index"),
+    path("settings/", include("game.urls.settings.index")),
 ]

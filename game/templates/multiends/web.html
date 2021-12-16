@@ -5,7 +5,7 @@
     <script src="https://cdn.acwing.com/static/jquery/js/jquery-3.3.1.min.js"></script>
     <!--我们也可以引入自己写的css文件，写法如下： 注意的是，我们使用Django自带的工具,如下面的写法所示：！！！，此外还需要在开头加上一句话-->
     <link rel="stylesheet" href="{% static 'css/game.css'%}"
-    <!--下面导入js文件,注意Django里的静态文件就要这样写，大括号百分百号{%%}。   注意script需要闭标签-->
+    <!--下面导入js文件,注意Django里的静态文件就要这样写，大括号百分百号。   注意script需要闭标签-->
     <script src="{% static 'js/dist/game.js' %}"> </script>
 
 </head>
@@ -15,7 +15,7 @@
     <div id="ac_game_12345678"></div>
     <script>
         $(document).ready(function(){
-            let ac_game = AcGame("ac_game_12345678");
+            let ac_game = new AcGame("ac_game_12345678");
         })
     </script>
 </body>

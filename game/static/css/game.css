@@ -1,3 +1,36 @@
-.ac_game_menu {
-
+.ac-game-menu {
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/image/menu/background.gif");
+    background-size: 100% 100%;
+    user-select:none;
 }
+
+.ac-game-menu-field {
+    /*百分比单位，vh是百分比高度，  vw是百分比宽度 
+     top是左上角距离上方的高度
+     left是到左边的宽度
+     * */
+    width: 20vw;
+    position: relative;
+    top: 40vh;
+    left: 19vw;
+}
+.ac-game-menu-field-item {
+    color: white;
+    height: 6vh;
+    width: 18vw;
+    font-size: 4vh;
+    font-style: italic;
+    text-align: center;
+    background-color: rgba(39,21,28, 0.6);
+    border-radius: 10px;
+    letter-spacing: 0.5vw;
+    cursor: pointer;
+}
+
+.ac-game-menu-field-item:hover {
+    transform: scale(1.2);
+    transition: 100ms;
+}
+

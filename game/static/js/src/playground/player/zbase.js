@@ -39,11 +39,14 @@ class Player extends AcGameObject {
             return false;
         });
         this.playground.game_map.$canvas.mousedown(function(e) {
+            const rect = outer.ctx.canvas.getBoundingClientRect();
             if (e.which === 3) {//keycode 1:左键  2:滚轮 3：右键
-                outer.move_to(e.clientX, e.clientY);//clientXY是API获得点击的坐标,Player的移动，归根到底是画布上的作画，因此我们需要做的是根据鼠标点击目标位置的坐标，更新vx，vy。从而设置Player的坐标
+                outer.move_to(e.clientX - rect.left, e.clientY - rect.top);
+                //outer.move_to(e.clientX, e.clientY);//clientXY是API获得点击的坐标,Player的移动，归根到底是画布上的作画，因此我们需要做的是根据鼠标点击目标位置的坐标，更新vx，vy。从而设置Player的坐标
             } else if (e.which === 1) {//鼠标按左键则触发该事件，触发后先判断是否持有技能，如果持有技能则发送火球！
                 if (outer.cur_skill === "fireball") {
-                    outer.shoot_fireball(e.clientX, e.clientY);
+                    outer.shoot_fireball(e.clientX - rect.left, e.clientY - rect.top); 
+                    // outer.shoot_fireball(e.clientX, e.clientY);
                 }
 
                 outer.cur_skill = null;

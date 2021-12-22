@@ -220,11 +220,14 @@ class Player extends AcGameObject {
             return false;
         });
         this.playground.game_map.$canvas.mousedown(function(e) {
+            const rect = outer.ctx.canvas.getBoundingClientRect();
             if (e.which === 3) {//keycode 1:左键  2:滚轮 3：右键
-                outer.move_to(e.clientX, e.clientY);//clientXY是API获得点击的坐标,Player的移动，归根到底是画布上的作画，因此我们需要做的是根据鼠标点击目标位置的坐标，更新vx，vy。从而设置Player的坐标
+                outer.move_to(e.clientX - rect.left, e.clientY - rect.top);
+                //outer.move_to(e.clientX, e.clientY);//clientXY是API获得点击的坐标,Player的移动，归根到底是画布上的作画，因此我们需要做的是根据鼠标点击目标位置的坐标，更新vx，vy。从而设置Player的坐标
             } else if (e.which === 1) {//鼠标按左键则触发该事件，触发后先判断是否持有技能，如果持有技能则发送火球！
                 if (outer.cur_skill === "fireball") {
-                    outer.shoot_fireball(e.clientX, e.clientY);
+                    outer.shoot_fireball(e.clientX - rect.left, e.clientY - rect.top); 
+                    // outer.shoot_fireball(e.clientX, e.clientY);
                 }
 
                 outer.cur_skill = null;
@@ -435,19 +438,7 @@ class AcGamePlayground {
     constructor(root) {
         this.root = root;
         this.$playground = $(`<div class="ac-game-playground"></div>`);
-
-        // this.hide();
-         //创建当前界面,html对象前一般加一个$，普通对象不加$。注意不是'而是`,类似python的''' 怎么写怎么显示到前端。
-        this.root.$ac_game.append(this.$playground); //把playground标签加到 
-        this.width = this.$playground.width();
-        this.height = this.$playground.height();
-        this.game_map = new GameMap(this);
-        this.players = [];
-        this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, "white", this.height * 0.15, true));//我自己
-
-        for (let i = 0; i < 5; i ++ ) {//其他人机玩家
-            this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, this.get_random_color(), this.height * 0.15, false));
-        }
+        this.hide();
 
         this.start();
     }
@@ -458,10 +449,23 @@ class AcGamePlayground {
     }
 
     start() {
+        
     }
 
     show() {  // 打开playground界面
         this.$playground.show();
+        //创建当前界面,html对象前一般加一个$，普通对象不加$。注意不是'而是`,类似python的''' 怎么写怎么显示到前端。
+        this.root.$ac_game.append(this.$playground); //把playground标签加到 
+        this.width = this.$playground.width();
+        this.height = this.$playground.height();
+        this.game_map = new GameMap(this);
+        this.players = [];
+        this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, "white", this.height * 0.15, true));//我自己
+
+        for (let i = 0; i < 5; i ++ ) {//其他人机玩家
+            this.players.push(new Player(this, this.width / 2, this.height / 2, this.height * 0.05, this.get_random_color(), this.height * 0.15, false));
+        }
+         
     }
 
     hide() {  // 关闭playground界面
@@ -473,7 +477,7 @@ export class AcGame {
         this.id = id;
          //ac_game是给div取的名字，这行代码的意义是使用jQuery获得html里的div对象,以后方便往里面加东西
         this.$ac_game = $('#' + id);
-        // this.menu = new AcGameMenu(this);
+        this.menu = new AcGameMenu(this);
         this.playground = new AcGamePlayground(this);
 
         this.start();
